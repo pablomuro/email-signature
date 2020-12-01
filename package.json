@@ -1,0 +1,13 @@
+{
+  "name": "pablo-email-signature",
+  "version": "0.1",
+  "main": "index.js",
+  "author": "Pablo Alves Muro Martinez",
+  "license": "MIT",
+  "dependencies": {
+    "juice": "^7.0.0",
+    "canvas" : "^2.6.1",
+    "cheerio": "^1.0.0-rc.3",
+    "mensch": "0.3.4"
+  }
+}

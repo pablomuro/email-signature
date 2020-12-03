@@ -4,7 +4,7 @@ const mensch = require('mensch');
 const fs = require('fs');
 const { createCanvas } = require('canvas')
 // https://gitcdn.link/repo/pablomuro/email-signature/main/img/bg.png
-const email_template = fs.readFileSync('./stamp_email.html')
+const email_template = fs.readFileSync('./stamp_email_out.html')
 const $ = cheerio.load(email_template);
 
 let COLORS = {}
@@ -88,18 +88,18 @@ function makeBase64Png(color, isCss = false){
   context.fillRect(0, 0, width, height)
 
   const png_buffer = canvas.toBuffer('image/png')
-  fs.writeFileSync('_bg.out.png', png_buffer)
+  fs.writeFileSync('./img/png/bg.png', png_buffer)
 
 
-  // =========================================SAVE SVG_COLOR FILE =========================================
-  // load SVG file from img src, find on img, change fill and save on svg/color
-  const svg_file = fs.readFileSync('./stamp_email.html')
-  const $_svg = cheerio.load(svg_file);
-  // _svg find path and change fill for theme-color
-  const svgHtmlString = $_svg.html()
-  const svg_buffer = new Buffer.from(svgHtmlString);
-  fs.writeFileSync('a.out.svg', svg_buffer)
-  // =======================================================================================================
+  // // =========================================SAVE SVG_COLOR FILE =========================================
+  // // load SVG file from img src, find on img, change fill and save on svg/color
+  // const svg_file = fs.readFileSync('./stamp_email.html')
+  // const $_svg = cheerio.load(svg_file);
+  // // _svg find path and change fill for theme-color
+  // const svgHtmlString = $_svg.html()
+  // const svg_buffer = new Buffer.from(svgHtmlString);
+  // fs.writeFileSync('a.out.svg', svg_buffer)
+  // // =======================================================================================================
 
 
   // const base64_png = png_buffer.toString('base64');

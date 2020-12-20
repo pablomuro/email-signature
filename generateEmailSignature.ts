@@ -1,27 +1,13 @@
 import juice from 'juice';
 import fs from 'fs';
-import dotenv from 'dotenv'
 import {
   getCheerioEmailTemplate, getThemeColorsMap, replaceVarsForColorAndPutCdnOnUrls,
   generatePngFromSvgFiles,
   generateBackgroundPng, changeSvgImgSourceFromHtml
 } from './utils'
 
-dotenv.config()
 
-const IS_TO_COMMIT_FILES = true
-
-const templateData = (function () {
-  const {
-    name, profession, company, location, phone, email,
-    linkedin_url, github_url, twitter_url, instagram_url
-  } = process.env
-  return {
-    name, profession, company, location, phone, email,
-    linkedin_url, github_url, twitter_url, instagram_url
-  }
-}())
-console.log(templateData)
+const IS_TO_COMMIT_FILES = false
 
 
 const GIT_CDN_NAME = 'https://ghcdn.rawgit.org/'
@@ -46,4 +32,4 @@ generateBackgroundPng(themeColor, BACKGROUND_SIZE)
 changeSvgImgSourceFromHtml($, cdnUrl)
 
 fs.writeFileSync('out.html', $.html())
-
+console.log('generating')

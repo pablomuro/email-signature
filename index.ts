@@ -1,16 +1,33 @@
 import juice from 'juice';
 import fs from 'fs';
-import { 
+import dotenv from 'dotenv'
+import {
   getCheerioEmailTemplate, getThemeColorsMap, replaceVarsForColorAndPutCdnOnUrls,
   generatePngFromSvgFiles,
   generateBackgroundPng, changeSvgImgSourceFromHtml
 } from './utils'
 
-const IS_TO_COMMIT_FILES = false
+dotenv.config()
+
+const IS_TO_COMMIT_FILES = true
+
+const templateData = (function () {
+  const {
+    name, profession, company, location, phone, email,
+    linkedin_url, github_url, twitter_url, instagram_url
+  } = process.env
+  return {
+    name, profession, company, location, phone, email,
+    linkedin_url, github_url, twitter_url, instagram_url
+  }
+}())
+console.log(templateData)
+
+
 const GIT_CDN_NAME = 'https://ghcdn.rawgit.org/'
 const REPOSITORIE = 'pablomuro/email-signature/main/'
 const BACKGROUND_SIZE = 35
-const DEFAULT_THEME_COLOR = '#6192de'
+const DEFAULT_THEME_COLOR = '#34495E'  //azul-default: #6192de    azul-escuro: #34495E
 const OVERRIDE_CSS_THEME_COLOR = false
 
 const $ = getCheerioEmailTemplate('./stamp_email_out.html')

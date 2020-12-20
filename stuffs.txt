@@ -33,3 +33,5 @@ http://www.cheminfo.org/Tutorial/8._Images/9.7_Create_a_PNG_image_in_javascript/
 
 https://github.com/fuzhenn/node-svg2img
 https://www.npmjs.com/package/convert-svg-to-png
+
+https://htmlcolorcodes.com/

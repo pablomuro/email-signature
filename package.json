@@ -5,8 +5,7 @@
   "author": "Pablo Alves Muro Martinez",
   "license": "MIT",
   "scripts": {
-    "server": "http-server",
-    "dev": "ts-node-dev --transpile-only index.ts"
+    "server": "ts-node-dev --transpile-only server.ts"
   },
   "dependencies": {
     "canvas": "^2.6.1",

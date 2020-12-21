@@ -10,26 +10,72 @@ import {
 const IS_TO_COMMIT_FILES = false
 
 
-const GIT_CDN_NAME = 'https://ghcdn.rawgit.org/'
-const REPOSITORIE = 'pablomuro/email-signature/main/'
-const BACKGROUND_SIZE = 35
-const DEFAULT_THEME_COLOR = '#34495E'  //azul-default: #6192de    azul-escuro: #34495E
-const OVERRIDE_CSS_THEME_COLOR = false
+class GenerateEmailSignature {
+  GIT_CDN_NAME = 'https://ghcdn.rawgit.org/'
+  REPOSITORY = 'pablomuro/email-signature/main/'
+  BACKGROUND_SIZE = 35
+  DEFAULT_THEME_COLOR = '#34495E'  //azul-default: #6192de    azul-escuro: #34495E
+  OVERRIDE_CSS_THEME_COLOR = false
 
-const $ = getCheerioEmailTemplate('./stamp_email_out.html')
-const cssText = $('html head style').contents().get(0).data
-const cdnUrl = GIT_CDN_NAME + REPOSITORIE
-const colorsMap = getThemeColorsMap(cssText)
-const themeColor = (!OVERRIDE_CSS_THEME_COLOR) ? (colorsMap.get('--theme-color')) ? colorsMap.get('--theme-color') : DEFAULT_THEME_COLOR : DEFAULT_THEME_COLOR
+  _html: string | null;
+  themeColor: string | null;
+  cdnUrl = this.GIT_CDN_NAME + this.REPOSITORY
 
-const newCss = replaceVarsForColorAndPutCdnOnUrls(cssText, colorsMap, cdnUrl)
+  constructor() {
+    this._html = null;
+    this.themeColor = null;
+  }
 
-juice.inlineDocument($, newCss)
+  init(html: string) {
+    this._html = html
+    const matchGroup = html.match(/(--theme-color)(.*)(#.*)(;)/m)
+    if (matchGroup && matchGroup[0].includes('--theme-color') && matchGroup[0].includes('#')) {
+      this.themeColor = matchGroup[3]
+    }
 
-generatePngFromSvgFiles(themeColor, IS_TO_COMMIT_FILES)
-generateBackgroundPng(themeColor, BACKGROUND_SIZE)
+    this.createImageFiles()
+  }
 
-changeSvgImgSourceFromHtml($, cdnUrl)
+  get html() {
+    return (this._html) ? this._html : ''
+  }
 
-fs.writeFileSync('out.html', $.html())
-console.log('generating')
+  build() {
+    if (!this._html) return null
+    console.log('generating')
+
+    const $ = getCheerioEmailTemplate(this._html)
+    const cssText = $('html head style').contents().get(0).data
+    const colorsMap = getThemeColorsMap(cssText)
+    const themeColor = (!this.OVERRIDE_CSS_THEME_COLOR) ? (colorsMap.get('--theme-color')) ? colorsMap.get('--theme-color') : this.DEFAULT_THEME_COLOR : this.DEFAULT_THEME_COLOR
+
+    const newCss = replaceVarsForColorAndPutCdnOnUrls(cssText, colorsMap, this.cdnUrl)
+
+    juice.inlineDocument($, newCss)
+
+    this.createImageFiles(themeColor, IS_TO_COMMIT_FILES)
+
+    changeSvgImgSourceFromHtml($, this.cdnUrl)
+
+    const buildedHtml = $.html()
+
+    fs.writeFileSync('out.html', buildedHtml)
+
+    return buildedHtml;
+  }
+
+  createImageFiles(_themeColor = null, isToCommitFile = false) {
+    const themeColor = (_themeColor) ? _themeColor : this.themeColor
+    if (themeColor) {
+      generatePngFromSvgFiles(themeColor, isToCommitFile)
+      generateBackgroundPng(themeColor, this.BACKGROUND_SIZE)
+    }
+  }
+
+}
+
+export const generateEmailSignature = new GenerateEmailSignature()
+
+
+
+

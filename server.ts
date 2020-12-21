@@ -1,7 +1,7 @@
 import express from 'express'
 import fs from 'fs'
 import path from 'path'
-// import { generator } from './generateEmailSgnature'
+import { generateEmailSignature } from './generateEmailSignature'
 import { createSSRApp } from 'vue'
 import { renderToString } from '@vue/server-renderer'
 import dotenv from 'dotenv'
@@ -21,16 +21,30 @@ const templateData: object = (function () {
   }
 }())
 
-const templateFile = path.join(__dirname, 'signature_templates', 'index.html')
+const templatePath = path.join(__dirname, 'signature_templates')
+const defaultTemplateFile = path.join(templatePath, 'index.html')
 
 server.use('/img', express.static(path.join(__dirname, 'img')))
 
-const generateTemplateHtml = async () => {
-  const templateHtml = fs.readFileSync(templateFile, 'utf-8').toString()
+let templateHtml: string
+const generateTemplateHtml = async (fileName: string | null = null) => {
+
+  if (fileName) {
+    try {
+      templateHtml = fs.readFileSync(path.join(templatePath, `${fileName}.html`), 'utf-8').toString()
+    } catch (error) {
+      templateHtml = fs.readFileSync(defaultTemplateFile, 'utf-8').toString()
+    }
+  } else {
+    templateHtml = fs.readFileSync(defaultTemplateFile, 'utf-8').toString()
+  }
+
+  generateEmailSignature.init(templateHtml)
+  generateEmailSignature.createImageFiles()
 
   const vueApp = createSSRApp({
     data: () => ({ ...templateData }),
-    template: templateHtml
+    template: generateEmailSignature.html
   })
 
   const renderHtml = await renderToString(vueApp)
@@ -38,12 +52,24 @@ const generateTemplateHtml = async () => {
 }
 
 server.get('/out', async (req: any, res: any) => {
-  const renderHtml = await generateTemplateHtml()
-  res.send('teste')
+  let buildedHtml = generateEmailSignature.build()
+  if (!buildedHtml) {
+    await generateTemplateHtml()
+    buildedHtml = generateEmailSignature.build()
+  }
+
+  res.send(buildedHtml)
+
 })
-server.get('*', async (req: any, res: any) => {
+server.get('*/:template', async (req: any, res: any) => {
+  const templateFileName = req.params.template
+  const renderHtml = await generateTemplateHtml(templateFileName)
+  res.end(renderHtml);
+})
+
+server.get('/', async (req: any, res: any) => {
   const renderHtml = await generateTemplateHtml()
-  res.send(renderHtml);
+  res.end(renderHtml);
 })
 
 server.listen(3000, () => {

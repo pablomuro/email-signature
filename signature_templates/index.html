@@ -57,6 +57,14 @@
         display: inline-block;
       }
 
+      .social-links a {
+        margin: 0 2px;
+      }
+
+      .social-links a:last-child {
+        margin-right: 0;
+      }
+
       .social-links img {
         width: 14px;
         height: 14px;
@@ -140,25 +148,25 @@
                     />
                   </div>
                   <div class="social-links">
-                    <a href="https://www.linkedin.com/in/pablomuro/">
+                    <a :href="linkedin_url">
                       <img
                         src="../img/svg/social/linkedin.svg"
                         alt="linkedin logo"
                       />
                     </a>
-                    <a href="https://github.com/pablomuro">
+                    <a :href="github_url">
                       <img
                         src="../img/svg/social/github.svg"
                         alt="github logo"
                       />
                     </a>
-                    <a href="#">
+                    <a :href="twitter_url">
                       <img
                         src="../img/svg/social/twitter.svg"
                         alt="twitter logo"
                       />
                     </a>
-                    <a href="https://www.instagram.com/pablomurodev/">
+                    <a :href="instagram_url">
                       <img
                         src="../img/svg/social/instagram.svg"
                         alt="instagram logo"
@@ -167,10 +175,8 @@
                   </div>
                 </td>
                 <td class="personal-data-wrapper">
-                  <h3 class="personal-data-name">Pablo A. Muro Martinez</h3>
-                  <h5 class="personal-data-profession">
-                    Analista Desenvolvedor de Software Pleno
-                  </h5>
+                  <h3 class="personal-data-name">{{ name }}</h3>
+                  <h5 class="personal-data-profession">{{ profession }}</h5>
 
                   <div class="line"></div>
 
@@ -182,7 +188,7 @@
                       />
                     </span>
 
-                    <p>Brasília, Federal District , Brazil</p>
+                    <p>{{ location }}</p>
                   </div>
                   <div class="personal-data">
                     <span>
@@ -191,7 +197,7 @@
                         alt="phone icon for phone"
                       />
                     </span>
-                    <a href="tel:+55+61+98187-7799">+55 61 98187-7799</a>
+                    <a :href="'tel:' + phone">{{ phone }}</a>
                   </div>
                   <div class="personal-data">
                     <span>
@@ -200,9 +206,7 @@
                         alt="envelope icon for email"
                       />
                     </span>
-                    <a href="mailto:pablo.muro@gmail.com"
-                      >pablo.muro@gmail.com</a
-                    >
+                    <a :href="'mailto:' + email">{{ email }}</a>
                   </div>
                   <div class="personal-data">
                     <span>
@@ -211,7 +215,7 @@
                         alt="wifi icon for website link"
                       />
                     </span>
-                    <a href="https://www.pablomuro.dev">www.pablomuro.dev</a>
+                    <a :href="'https://' + website_url">{{ website_url }}</a>
                   </div>
                 </td>
               </tr>

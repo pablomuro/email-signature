@@ -13,11 +13,11 @@ const port = 3000
 const templateData: object = (function () {
   const {
     name, profession, company, location, phone, email,
-    linkedin_url, github_url, twitter_url, instagram_url
+    website_url, linkedin_url, github_url, twitter_url, instagram_url
   } = process.env
   return {
     name, profession, company, location, phone, email,
-    linkedin_url, github_url, twitter_url, instagram_url
+    website_url, linkedin_url, github_url, twitter_url, instagram_url
   }
 }())
 
@@ -39,15 +39,16 @@ const generateTemplateHtml = async (fileName: string | null = null) => {
     templateHtml = fs.readFileSync(defaultTemplateFile, 'utf-8').toString()
   }
 
-  generateEmailSignature.init(templateHtml)
-  generateEmailSignature.createImageFiles()
-
   const vueApp = createSSRApp({
     data: () => ({ ...templateData }),
-    template: generateEmailSignature.html
+    template: templateHtml
   })
 
   const renderHtml = await renderToString(vueApp)
+
+  generateEmailSignature.init(renderHtml)
+  generateEmailSignature.createImageFiles()
+
   return renderHtml
 }
 

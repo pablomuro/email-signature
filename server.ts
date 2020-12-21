@@ -10,7 +10,7 @@ dotenv.config()
 const server = express()
 const port = 3000
 
-const templateData: object = (function () {
+const templateData = function () {
   const {
     name, profession, company, location, phone, email,
     website_url, linkedin_url, github_url, twitter_url, instagram_url
@@ -19,7 +19,7 @@ const templateData: object = (function () {
     name, profession, company, location, phone, email,
     website_url, linkedin_url, github_url, twitter_url, instagram_url
   }
-}())
+}
 
 const templatePath = path.join(__dirname, 'signature_templates')
 const defaultTemplateFile = path.join(templatePath, 'index.html')
@@ -40,7 +40,7 @@ const generateTemplateHtml = async (fileName: string | null = null) => {
   }
 
   const vueApp = createSSRApp({
-    data: () => ({ ...templateData }),
+    data: () => ({ ...templateData() }),
     template: templateHtml
   })
 

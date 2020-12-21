@@ -70,17 +70,16 @@ class GenerateEmailSignature {
 
     const renderHtml = await renderToString(vueApp)
 
-    generateEmailSignature.createImageFiles()
-
     const matchGroup = renderHtml.match(/(--theme-color)(.*)(#.*)(;)/m)
     if (matchGroup && matchGroup[0].includes('--theme-color') && matchGroup[0].includes('#')) {
       this.themeColor = matchGroup[3]
     }
 
     this.createImageFiles()
+
     this._html = renderHtml
 
-    return renderHtml
+    return this._html
   }
 
   get html() {

@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "server": "ts-node-dev --transpile-only server.ts",
-    "postinstall": "node-prune"
+    "generate": ""
   },
   "dependencies": {
     "canvas": "^2.6.1",

@@ -7,3 +7,11 @@ https://github.com/vuejs/vue-next/tree/master/packages/server-renderer#readme
 https://stackoverflow.com/questions/64239478/how-to-use-ssr-with-vue-3
 https://github.com/ozguruysal/vue3-ssr/blob/master/server/app.js
 https://repl.it/@Modus/vue3-example-ssr#src/server.js
+
+imagemagick hook
+https://help.cloud66.com/rails/how-to-guides/deployment/deploy-hook-examples.html
+https://github.com/ImageMagick/ImageMagick/blob/master/Install-unix.txt
+https://www.digitalocean.com/community/tutorials/workflow-resizing-images-with-imagemagick
+
+https://css-tricks.com/converting-and-optimizing-images-from-the-command-line/
+

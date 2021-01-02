@@ -36,6 +36,7 @@ server.get('/', async (req: any, res: any) => {
   res.end(renderHtml);
 })
 
-server.listen(3000, () => {
-  console.log(`Example server listening at http://localhost:3000`)
+
+const listener = server.listen(0, () => {
+  console.log(`Example server listening at http://localhost:${listener.address().port}`)
 })

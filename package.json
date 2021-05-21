@@ -5,21 +5,22 @@
   "author": "Pablo Alves Muro Martinez",
   "license": "MIT",
   "scripts": {
+    "preinstall": "./pre-install.sh",
     "server": "ts-node-dev --transpile-only server.ts",
     "generate": ""
   },
   "dependencies": {
-    "canvas": "^2.6.1",
-    "cheerio": "^1.0.0-rc.3",
-    "juice": "^7.0.0",
-    "mensch": "0.3.4",
-    "vue": "^3.0.4",
     "@vue/server-renderer": "^3.0.4",
+    "canvas": "^2.8.0",
+    "cheerio": "^1.0.0-rc.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "node-sass": "^5.0.0",
+    "juice": "^7.0.0",
+    "mensch": "0.3.4",
+    "node-sass": "^6.0.0",
     "ts-node-dev": "^1.1.1",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "vue": "^3.0.4"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.23",

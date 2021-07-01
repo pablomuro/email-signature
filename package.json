@@ -7,17 +7,20 @@
   "scripts": {
     "preinstall": "./pre-install.sh",
     "server": "ts-node-dev --transpile-only server.ts",
-    "generate": ""
+    "generate": "ts-node-dev --transpile-only generator.ts",
+    "start": "npm run generate"
   },
   "dependencies": {
     "@vue/server-renderer": "^3.0.4",
     "canvas": "^2.8.0",
     "cheerio": "^1.0.0-rc.3",
+    "consola": "^2.15.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "juice": "^7.0.0",
     "mensch": "0.3.4",
     "node-sass": "^6.0.0",
+    "open": "^8.2.1",
     "ts-node-dev": "^1.1.1",
     "typescript": "^4.1.3",
     "vue": "^3.0.4"

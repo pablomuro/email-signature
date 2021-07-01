@@ -20,8 +20,8 @@ class GenerateEmailSignature {
   BACKGROUND_SIZE = 35
   DEFAULT_THEME_COLOR = '#34495E'  //azul-default: #6192de    azul-escuro: #34495E
 
-  gitCdnName = 'https://gitcdn.xyz/repo/'
-  gitRepository = 'pablomuro/email-signature/main/'
+  gitCdnName = 'https://cdn.jsdelivr.net/gh/'
+  gitRepository = 'pablomuro/email-signature/'
   templatePath = path.join(__dirname, 'signature_templates')
   defaultTemplateFile = path.join(this.templatePath, 'index.html')
 

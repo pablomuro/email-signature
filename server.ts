@@ -38,5 +38,6 @@ server.get('/', async (req: any, res: any) => {
 
 
 const listener = server.listen(0, () => {
-  console.log(`Example server listening at http://localhost:${listener.address().port}`)
+  console.log(`Example server listening at http://localhost:${listener?.address()?.port}`)
+  open(`http://localhost:${listener?.address()?.port}/out`)
 })
